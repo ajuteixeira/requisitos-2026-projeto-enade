@@ -137,7 +137,7 @@ Média. Alimentação contínua pelos docentes ao longo dos semestres, intensifi
 
 ## IV1. Tela de Cadastro e Edição de Questões Educacionais
 
-### Leiaute da Tela
+### Layout da Tela
 
 Interface de uso exclusivo da equipe docente para inserção, formatação estruturada de itens de avaliação e revisão de justificativas técnicas, utilizando o token de sessão ativa e exibindo o curso de atuação de forma estática.
 
