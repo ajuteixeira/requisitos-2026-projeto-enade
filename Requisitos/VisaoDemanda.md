@@ -75,7 +75,7 @@ Não está no escopo dessa demanda a emissão de certificados oficiais de conclu
 * **Valor:** Alto
 
 #### F1.2 Seleção de questões por filtro
-* **Descrição:** Filtro por ano, curso e tipo de componente (Formação Geral ou Conhecimento Específico).
+* **Descrição:** Filtro por área/tema e tipo de componente (Formação Geral ou Conhecimento Específico).
 * **Incluída**
 * **Atores:** Aluno concluinte
 * **Frequência:** Média
