@@ -7,6 +7,7 @@
 | Data       | Versão | Descrição                                                                                          | Autor         |
 | ---------- | ------- | -------------------------------------------------------------------------------------------------- | ------------- |
 | 18/05/2026 | 1.0     | Criação inicial do caso de uso com base no requisito F1.1 da Visão da Demanda.                     | Juliana       |
+| 27/05/2026 | 1.1     | Inclusão da especificação de Interface Visual e outros ajustes.         | Juliana      |
 
 ## 1. Nome do Caso de Uso
 
@@ -39,9 +40,9 @@ Concreto.
 
 | Código | Descrição |
 |---|---|
-| PRE01 | O Aluno Concluinte deve estar previamente autenticado no sistema |
-| PRE02 | O Aluno Concluinte deve ter aceitado explicitamente o Termo de Consentimento da LGPD no primeiro acesso |
-| PRE03 | Devem existir questões válidas indexadas e cadastradas no banco de dados para o curso do aluno |
+| PRE01 | O Aluno Concluinte deve estar previamente autenticado no sistema (F4.1 / RNF-017) |
+| PRE02 | O Aluno Concluinte deve ter aceitado explicitamente o Termo de Consentimento da LGPD no primeiro acesso (RNF-019) |
+| PRE03 | Devem existir questões válidas indexadas e cadastradas no banco de dados para o curso do aluno (RN1 / F4.8) |
 
 ## 6. Fluxo Principal
 
@@ -51,7 +52,7 @@ O Aluno Concluinte acessa a plataforma web por meio de um navegador compatível 
 
 ### P2. Inicializar caderno de questões e cronômetro
 
-A solução processa a requisição via tráfego seguro HTTPS (`RNF-013`) em formato JSON (`RNF-035`), monta o caderno de questões personalizado para o curso, inicializa a contagem regressiva e renderiza a interface em menos de 3 segundos (`RNF-002`).
+ A solução processa a requisição via tráfego seguro HTTPS (`RNF-013`) em formato JSON (`RNF-035`), monta o caderno de questões personalizado para o curso, inicializa a contagem regressiva e renderiza a interface em menos de 3 segundos (`RNF-002`).
 
 ### P3. Apresentar questão componentizada
 
@@ -83,7 +84,7 @@ O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro e
 
 ### E1. Queda abrupta de conexão de internet
 
-#### E1.1. Durante a navegação ou submissão de respostas (passos P3 ou P4), a solução detecta instabilidade técnica ou perda de comunicação ativa com o servidor AWS.
+#### E1.1. Durante a navegação ou submissão de respostas (passos P3 ou P4), a solução detecta instabilidade técnica ou perda de comunicação activa com o servidor AWS.
 #### E1.2. A solução aciona os mecanismos de tolerância a falhas, congelando imediatamente o cronômetro regressivo em tela para não punir o aluno com encerramento forçado indevido (`RNF-011` / `RNF-037`).
 #### E1.3. A solução salva localmente a última resposta assinalada via *LocalStorage* (`RNF-011`) e exibe uma notificação de erro clara na interface responsiva (`RNF-028`).
 #### E1.4. Assim que a conexão HTTPS (TLS 1.3) é restabelecida, o estado do simulado é validado junto ao servidor e o Aluno Concluinte retoma o simulado sem perda de progresso.
@@ -99,7 +100,7 @@ O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro e
 | Código | Descrição |
 |---|---|
 | POS01 | A tentativa de simulado e suas respostas são registradas de forma permanente no PostgreSQL |
-| POS02 | Os painéis estatísticos individuais do aluno e os relatórios gerenciais das turmas são atualizados sincronizadamente |
+| POS02 | Os painéis estatísticos individuais do aluno e os relatórios gerenciais das turmas são updated sincronizadamente |
 | POS03 | O Aluno Concluinte ganha privilégio de acesso para interagir nos Fóruns por Questão correspondentes ao simulado |
 
 ## 10. Requisitos Não Funcionais
@@ -127,9 +128,72 @@ Permite direcionar o Aluno Concluinte para a funcionalidade de exibição de gab
 
 Alta. Volume concentrado massivamente em períodos de avaliações institucionais e nos meses que antecedem o cronograma oficial de aplicação do ENADE.
 
-## 13. Interface Visual
+# 13. Interface Visual
 
-Não se aplica.
+## IV1. Tela de Execução de Simulado Cronometrado
+
+### Layout da Tela
+
+Interface de uso exclusivo do Aluno Concluinte focada em alta performance e legibilidade, exibindo blocos de questões sequenciais, mapa de navegação de respostas e cronômetro regressivo persistente.
+
+---
+
+## 13.1 Campos da Interface
+
+| Campo | Tipo/Formato | Obrigatório | Descrição | Regra de Negócio / RNF |
+|---|---|---|---|---|
+| Cronômetro Regressivo | Contador de Tempo | Sim | Tempo restante dinâmico no formato HH:MM:SS | Congela em quedas de rede (RN4 / RNF-037) |
+| Painel de Questões | Grid Numérico | Sim | Atalhos visuais para saltar direto para qualquer questão do caderno | Muda de cor para indicar item respondido ou pendente |
+| Identificador do Item | Rótulo / Texto | Sim | Código e numeração sequencial da questão atual | Exemplo: "Questão 04 - Componente Específico" |
+| Bloco de Texto Base | Rich Text (Leitura) | Sim | Texto principal, charges, artigos ou cenários formulados | Renderização rápida em tela (RNF-001) |
+| Imagem Decorativa/Suporte | Imagem / Gráfico | Não | Ilustrações técnicas acopladas à contextualização | Suporte a zoom e descrição de tela (RNF-027) |
+| Enunciado da Avaliação | Texto (Leitura) | Sim | Pergunta ou comando central da questão | Alinhado à estrutura oficial (RN1) |
+| Alternativa A | Radio Button / Texto | Sim | Texto descritivo da asserção A | Seleção exclusiva e salvamento automático |
+| Alternativa B | Radio Button / Texto | Sim | Texto descritivo da asserção B | Seleção exclusiva e salvamento automático |
+| Alternativa C | Radio Button / Texto | Sim | Texto descritivo da asserção C | Seleção exclusiva e salvamento automático |
+| Alternativa D | Radio Button / Texto | Sim | Texto descritivo da asserção D | Seleção exclusiva e salvamento automático |
+| Alternativa E | Radio Button / Texto | Sim | Texto descritivo da asserção E | Seleção exclusiva e salvamento automático |
+| Botão "Questão Anterior" | Botão | Não | Retorna ao item imediatamente anterior do caderno | Desabilitado se o usuário estiver na primeira questão |
+| Botão "Próxima Questão" | Botão | Não | Grava a resposta e avança para a próxima questão | Salva incrementalmente (RNF-011) |
+| Botão "Finalizar Simulado" | Botão | Sim | Conclui a prova e envia o caderno de respostas para a API | Abre caixa de diálogo obrigatória (RNF-026) |
+
+---
+
+## 13.2 Navegabilidade
+
+| Ação | Resultado |
+|---|---|
+| Marcar alternativa e clicar em "Próxima Questão" | O sistema registra a opção de forma incremental (banco/local), muda a cor do item no painel e exibe a próxima questão (RNF-011) |
+| Clicar em qualquer número do Painel de Questões | A interface realiza uma transição suave direta para a questão selecionada, mantendo o tempo rodando |
+| Clicar em "Finalizar Simulado" | O cronômetro é congelado em segundo plano e uma caixa de diálogo em Modal surge cobrando a confirmação |
+| Confirmar encerramento no Modal | O sistema interrompe o ciclo, processa as notas e métricas via backend e redireciona para a tela de resumo (P6) |
+| O tempo zerar no Cronômetro | O sistema bloqueia imediatamente os campos de rádio e envia as respostas salvas compulsoriamente (E2) |
+
+---
+
+## 13.3 Mensagens Previstas
+
+| Código | Mensagem |
+|---|---|
+| MSG001 | Atenção! Você possui questões pendentes de resposta. Deseja realmente finalizar o simulado? |
+| MSG002 | Conexão de rede interrompida. Seu progresso foi guardado localmente e o cronômetro está pausado preventivamente. |
+| MSG003 | Sinal restabelecido! Sincronizando respostas com o servidor... |
+| MSG004 | Tempo limite esgotado. Suas respostas foram computadas e consolidadas automaticamente. |
+| MSG005 | Simulado concluído com sucesso. Gerando suas métricas de desempenho estatístico... |
+
+---
+
+## 13.4 Componentes Visuais
+
+| Área | Componente |
+|---|---|
+| Barra de Topo Fixa (Header) | Barra escura contendo o Cronômetro em fonte digital de alto contraste e o botão vermelho desaturado "Finalizar Simulado" |
+| Menu Lateral Esquerdo | Gaveta retrátil (Sidebar) contendo o grid numérico das questões com badges coloridos (Cinza: Pendente, Verde: Respondido) |
+| Corpo Central da Página | Card branco contendo o Texto Base estruturado em HTML limpo, imagem centralizada e Enunciado em destaque |
+| Bloco de Asserções | Lista vertical de blocos com efeito hover que cobrem toda a largura útil, facilitando o clique em telas sensíveis ao toque |
+| Barra de Rodapé | Botões minimalistas posicionados nas extremidades esquerda ("Anterior") e direita ("Próxima") |
+
+---
 
 ## 14. Observações
 
