@@ -1,6 +1,6 @@
 # Especificação de Requisitos Funcionais
 
-## Caso de Uso (CDU) - LAPIS (Sistema ENADE Comentado - SEC)
+## Caso de Uso (CDU) - (Sistema ENADE Comentado - SEC)
 
 ## Histórico de Versões
 
