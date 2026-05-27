@@ -10,6 +10,7 @@
 | 15/05/2026 | 1.3 | Inclusão dos diagramas de componentes e deployment | Juliana |
 | 18/05/2026 | 1.4 | Inclusão do diagrama de casos de uso e ajustes nas funcionalidades | Juliana |
 | 20/05/2026 | 1.5 | Atualização das necessidades, funcionalidades e diagramas. Inclusão do logo do sistema | Juliana |
+| 27/05/2026 | 1.6 | Atualização das necessidades e funcionalidades | Juliana |
 
 ## 1. Objetivo
 <img src="../Imagens/logo_v2.png" alt="1776555009224" width="20%">
@@ -171,7 +172,7 @@ Não está no escopo dessa demanda a emissão de certificados oficiais de conclu
 * **Valor:** Alto
 
 #### F4.8 Cadastro e carga de dados básicos iniciais
-* **Descrição:** O administrador será responsável por cadastrar os dados básicos iniciais, como as áreas, cursos, coordenadores, professores e alunos, além do vínculo deles com seus respectivos cursos. Será feita uma carga inicial desses dados para o início do funcionamento do sistema.
+* **Descrição:** O administrador será responsável por cadastrar os dados básicos iniciais, como questões, áreas, cursos, coordenadores, professores e alunos, além do vínculo deles com seus respectivos cursos. Será feita uma carga inicial desses dados para o início do funcionamento do sistema.
 * **Incluída**
 * **Atores:** Administrador
 * **Frequência:** Baixa
