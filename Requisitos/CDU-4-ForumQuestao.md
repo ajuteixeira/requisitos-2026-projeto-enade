@@ -66,7 +66,7 @@ O ator lê as postagens organizadas de maneira limpa (`RNF-029`) e com total sup
 
 ### P5. Postar uma nova mensagem
 
-O ator digita uma nova dúvida, comentário ou esclarecimento técnico na caixa de texto enriquecido e aciona o comando "Enviar Mensagem".
+O ator digita uma nova dúvida, comentário ou esclarecimento técnico na caixa de texto enriquecido e aciona o comando "Enviar Comentário".
 
 ### P6. Persistir e sincronizar a interação
 
