@@ -77,7 +77,7 @@ O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro e
 ### A1. Aplicação de filtros customizados de acervo
 
 #### A1.1. No passo P1 do fluxo principal, o Aluno Concluinte opta por parametrizar o simulado utilizando filtros de seleção (`F1.2`).
-#### A1.2. O Aluno Concluinte define os critérios desejados (ano do exame ou tipo de componente: Formação Geral ou Conhecimento Específico) seguindo as taxonomias oficiais do INEP (`RNF-042`).
+#### A1.2. O Aluno Concluinte define os critérios desejados (Formação Geral ou Conhecimento Específico) seguindo as taxonomias oficiais do INEP (`RNF-042`).
 #### A1.3. A solução valida os filtros informados, monta o caderno restrito e retorna ao fluxo principal no passo P2.
 
 ## 8. Fluxos de Exceção
