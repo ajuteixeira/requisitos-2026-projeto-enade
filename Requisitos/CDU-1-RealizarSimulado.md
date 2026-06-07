@@ -8,6 +8,7 @@
 | ---------- | ------- | -------------------------------------------------------------------------------------------------- | ------------- |
 | 18/05/2026 | 1.0     | Criação inicial do caso de uso com base no requisito F1.1 da Visão da Demanda.                     | Juliana       |
 | 27/05/2026 | 1.1     | Inclusão da especificação de Interface Visual e outros ajustes.         | Juliana      |
+| 07/06/2026 | 1.2     | Ajustes gerais.        | Juliana      |
 
 ## 1. Nome do Caso de Uso
 
@@ -52,7 +53,7 @@ O Aluno Concluinte acessa a plataforma web por meio de um navegador compatível 
 
 ### P2. Inicializar caderno de questões e cronômetro
 
- A solução processa a requisição via tráfego seguro HTTPS (`RNF-013`) em formato JSON (`RNF-035`), monta o caderno de questões personalizado para o curso, inicializa a contagem regressiva e renderiza a interface em menos de 3 segundos (`RNF-002`).
+A solução processa a requisição via tráfego seguro HTTPS (`RNF-013`) em formato JSON (`RNF-035`), monta o caderno de questões personalizado para o curso, inicializa a contagem regressiva e renderiza a interface em menos de 3 segundos (`RNF-002`).
 
 ### P3. Apresentar questão componentizada
 
@@ -70,7 +71,7 @@ O Aluno Concluinte conclui as respostas e aciona o comando de finalização. A s
 
 ### P6. Computar resultados com precisão estatística
 
-O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro em definitivo, calcula a proporção exata de acertos por área com base nas fórmulas matemáticas do ENADE (`RNF-039`), persiste o histórico definitivo no banco (`PostgreSQL`) e apresenta a tela de resumo de desempenho.
+O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro em definitivo, calcula a proporção exata de acertos por área com base nas fórmulas matemáticas do ENADE (`RNF-039`), persiste o histórico definitivo no banco (`PostgreSQL`) e apresenta a tela de visão geral do simulado.
 
 ## 7. Fluxos Alternativos
 
@@ -100,7 +101,7 @@ O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro e
 | Código | Descrição |
 |---|---|
 | POS01 | A tentativa de simulado e suas respostas são registradas de forma permanente no PostgreSQL |
-| POS02 | Os painéis estatísticos individuais do aluno e os relatórios gerenciais das turmas são updated sincronizadamente |
+| POS02 | Os painéis estatísticos individuais do aluno e os relatórios gerenciais das turmas são atualizados sincronizadamente |
 | POS03 | O Aluno Concluinte ganha privilégio de acesso para interagir nos Fóruns por Questão correspondentes ao simulado |
 
 ## 10. Requisitos Não Funcionais
@@ -153,8 +154,8 @@ Interface de uso exclusivo do Aluno Concluinte focada em alta performance e legi
 | Alternativa C | Radio Button / Texto | Sim | Texto descritivo da asserção C | Seleção exclusiva e salvamento automático |
 | Alternativa D | Radio Button / Texto | Sim | Texto descritivo da asserção D | Seleção exclusiva e salvamento automático |
 | Alternativa E | Radio Button / Texto | Sim | Texto descritivo da asserção E | Seleção exclusiva e salvamento automático |
-| Botão "Questão Anterior" | Botão | Não | Retorna ao item imediatamente anterior do caderno | Desabilitado se o usuário estiver na primeira questão |
-| Botão "Próxima Questão" | Botão | Não | Grava a resposta e avança para a próxima questão | Salva incrementalmente (RNF-011) |
+| Botão "Próximo" | Botão | Não | Retorna ao item imediatamente anterior do caderno | Desabilitado se o usuário estiver na primeira questão |
+| Botão "Anterior" | Botão | Não | Grava a resposta e avança para a próxima questão | Salva incrementalmente (RNF-011) |
 | Botão "Finalizar Simulado" | Botão | Sim | Conclui a prova e envia o caderno de respostas para a API | Abre caixa de diálogo obrigatória (RNF-026) |
 
 ---
@@ -163,7 +164,7 @@ Interface de uso exclusivo do Aluno Concluinte focada em alta performance e legi
 
 | Ação | Resultado |
 |---|---|
-| Marcar alternativa e clicar em "Próxima Questão" | O sistema registra a opção de forma incremental (banco/local), muda a cor do item no painel e exibe a próxima questão (RNF-011) |
+| Marcar alternativa e clicar em "Próximo" | O sistema registra a opção de forma incremental (banco/local), muda a cor do item no painel e exibe a próxima questão (RNF-011) |
 | Clicar em qualquer número do Painel de Questões | A interface realiza uma transição suave direta para a questão selecionada, mantendo o tempo rodando |
 | Clicar em "Finalizar Simulado" | O cronômetro é congelado em segundo plano e uma caixa de diálogo em Modal surge cobrando a confirmação |
 | Confirmar encerramento no Modal | O sistema interrompe o ciclo, processa as notas e métricas via backend e redireciona para a tela de resumo (P6) |
@@ -187,7 +188,7 @@ Interface de uso exclusivo do Aluno Concluinte focada em alta performance e legi
 
 | Área | Componente |
 |---|---|
-| Barra de Topo Fixa (Header) | Barra escura contendo o Cronômetro em fonte digital de alto contraste e o botão vermelho desaturado "Finalizar Simulado" |
+| Barra de Topo Fixa (Header) | Barra escura contendo o Cronômetro em fonte digital de alto contraste e o botão vermelho "Finalizar Simulado" |
 | Menu Lateral Esquerdo | Gaveta retrátil (Sidebar) contendo o grid numérico das questões com badges coloridos (Cinza: Pendente, Verde: Respondido) |
 | Corpo Central da Página | Card branco contendo o Texto Base estruturado em HTML limpo, imagem centralizada e Enunciado em destaque |
 | Bloco de Asserções | Lista vertical de blocos com efeito hover que cobrem toda a largura útil, facilitando o clique em telas sensíveis ao toque |
