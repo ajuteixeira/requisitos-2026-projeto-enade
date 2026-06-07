@@ -13,7 +13,7 @@
 
 Acessar fórum de discussão por questão
 
-<img src="../Imagens/Diagrama-CDU-4-ForumQuestao_v2.jpg" width="60%">
+<img src="../../Imagens/CDU-4-ForumQuestao_v2.png" width="60%">
 
 ## 2. Objetivo
 
