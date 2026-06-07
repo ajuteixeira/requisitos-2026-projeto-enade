@@ -13,7 +13,7 @@
 
 Acessar relatórios de desempenho de turmas
 
-<img src="../Imagens/Diagrama-CDU-3-RelatoriosTurmas_v2.jpg" width="60%">
+<img src="../../Imagens/CDU-3-RelatoriosTurmas_v2.png" width="60%">
 
 ## 2. Objetivo
 
