@@ -14,7 +14,7 @@
 
 Realizar simulados cronometrados
 
-<img src="../Imagens/Diagrama-CDU-1-RealizarSimulado_v2.png" width="60%">
+<img src="../../Imagens/CDU-1-RealizarSimulado_v2.png" width="60%">
 
 ## 2. Objetivo
 
