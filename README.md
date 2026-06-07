@@ -11,15 +11,31 @@ Aplicar a engenharia de requisitos para especificar um sistema web/mobile de que
 ```text
 .
 ├── README.md
+├── Imagens/
 └── Requisitos/
-	├── Glossario.md
-	└── VisaoDemanda.md
+    ├── Casos de Uso/
+    │   ├── CDU-1-RealizarSimulado.md
+    │   ├── CDU-2-CadastrarQuestão.md
+    │   ├── CDU-3-RelatoriosTurmas.md
+    │   └── CDU-4-ForumQuestao.md
+    ├── Glossario.md
+    ├── RegrasDeNegocio.md
+    ├── RequisitosNaoFuncionais.md
+    ├── RoteiroEntrevista.md
+    └── VisaoDemanda.md
+```
 
- ```
+## Protótipo
+
+- Acesse o protótipo do sistema em: https://ajuteixeira.github.io/prototipo-sec/geral_dashboard.html
 
 ## Descrição dos arquivos
 
+- **Requisitos/Casos de Uso/**: Casos de uso detalhados para as principais funcionalidades do sistema.
 - **Requisitos/Glossario.md**: Glossário de termos, siglas e expressões utilizados no domínio do ENADE e nas funcionalidades da plataforma.
+- **Requisitos/RegrasDeNegocio.md**: Regras de negócio que regem o comportamento do sistema e suas restrições.
+- **Requisitos/RequisitosNaoFuncionais.md**: Requisitos não funcionais relacionados a desempenho, usabilidade, segurança e qualidade.
+- **Requisitos/RoteiroEntrevista.md**: Roteiro de entrevista para coleta de requisitos com stakeholders.
 - **Requisitos/VisaoDemanda.md**: Documento de visão da demanda contendo o objetivo, proposta de valor, partes interessadas, personas e funcionalidades detalhadas.
 
 ## Contexto funcional
