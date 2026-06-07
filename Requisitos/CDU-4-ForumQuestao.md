@@ -7,6 +7,8 @@
 | Data       | Versão | Descrição                                                                                          | Autor         |
 | ---------- | ------- | -------------------------------------------------------------------------------------------------- | ------------- |
 | 28/05/2026 | 1.0     | Criação inicial do caso de uso com base nos requisitos F2.3 e F3.2 da Visão da Demanda e na RN3.   | Juliana        |
+| 07/06/2026 | 1.1     | Ajustes gerais.   | Juliana        |
+
 
 ## 1. Nome do Caso de Uso
 
@@ -99,7 +101,6 @@ A solução processa a mensagem text-only via JSON (`RNF-035`), sanitiza strings
 | Código | Descrição |
 |---|---|
 | POS01 | O novo comentário/resposta é indexado de forma permanente no PostgreSQL associado ao ID único da questão |
-| POS02 | O contador de interações do fórum daquela questão é atualizado e refletido nos painéis gerais de revisão |
 
 ## 10. Requisitos Não Funcionais
 
