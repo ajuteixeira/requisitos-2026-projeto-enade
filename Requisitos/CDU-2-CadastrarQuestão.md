@@ -4,10 +4,13 @@
 
 ## Histórico de Versões
 
-| Data       | Versão  | Descrição                                                                                               | Autor         |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------- | ------------- |
-| 26/05/2026 | 1.1     | Criação inicial do caso de uso com base no requisito F4.5 da Visão da Demanda. | Juliana |
-| 27/05/2026 | 1.2     | Inclusão da parte de identidade visual e outros ajustes. | Juliana |
+| Data       | Versão | Descrição                                                                                               | Autor         |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------- | ------------- |
+| 26/05/2026 | 1.1    | Criação inicial do caso de uso com base no requisito F4.5 da Visão da Demanda.                          | Juliana       |
+| 27/05/2026 | 1.2    | Inclusão da parte de identidade visual e outros ajustes.                                                | Juliana       |
+| 07/06/2026 | 1.3    | Inclusão do Fluxo Alternativo A2 (Salvar Rascunho da Questão) e ajustes gerais.                         | Juliana |
+
+<img src="../Imagens/Diagrama-CDU-2-CadastrarQuestão.jpg" alt="1776555009224" width="60%">
 
 ## 1. Nome do Caso de Uso
 
@@ -47,58 +50,54 @@ Concreto.
 ## 6. Fluxo Principal
 
 ### P1. Solicitar acesso ao módulo de cadastro
-
 O Professor acessa a plataforma web por meio de um navegador compatível (`RNF-008`), visualizando uma interface limpa com logotipos institucionais claros (`RNF-023` / `RNF-029`), e aciona o comando para cadastrar uma nova questão.
 
 ### P2. Exibir formulário de cadastro estruturado
-
 A API Node.js na AWS processa a requisição via tráfego criptografado HTTPS TLS 1.3 (`RNF-013`), validando o token JWT do usuário. A solução renderiza a tela do formulário estruturado em React no cliente em menos de 3 segundos (`RNF-002`), **apresentando o campo "Curso" automaticamente preenchido e bloqueado para alterações**, trazendo apenas as subcategorias de área/tema associadas a este curso (`RNF-040`).
 
 ### P3. Preencher dados da questão
-
 O Professor insere as informações obrigatórias utilizando componentes de UI reutilizáveis (`RNF-031`) que respeitam a acessibilidade WCAG 2.1 (`RNF-027`). Ele seleciona a **Subcategoria de Área/Tema** desejada (dentro das opções filtradas para o seu curso), define o Componente de Avaliação (`RNF-042`), preenche o texto base, adiciona imagens de suporte se necessário (`RNF-004`), o enunciado, as asserções e a justificativa técnica explicativa.
 
 ### P4. Solicitar gravação da nova questão
-
 O Professor aciona o comando para salvar. O sistema intercepta o envio dos dados estruturados em formato JSON (`RNF-035`). A API backend valida o token JWT, sanitiza as entradas contra SQL Injection e XSS (`RNF-015`) e garante que a questão respeite estritamente a área e o curso vinculados ao perfil do professor autenticado (`RN2`).
 
 ### P5. Registrar questão e trilha de auditoria
-
 A solução grava permanentemente a nova questão no banco PostgreSQL (`RNF-046`) em menos de 1,5 segundos (`RNF-001`). Simultaneamente, o sistema gera um log de auditoria imutável (`RNF-016` / `RN5`) vinculando o ID do usuário (extraído do token) e o timestamp do evento, exibindo uma notificação de sucesso na interface responsiva (`RNF-007`).
 
 ## 7. Fluxos Alternativos
 
 ### A1. Edição de questão existente
+* **A1.1.** No passo P1 do fluxo principal, o Professor opta por gerenciar o acervo e seleciona uma questão de sua autoria para alteração.
+* **A1.2.** O sistema valida os privilégios RBAC por meio do token JWT do professor (`RNF-017` / `RN2`) e carrega os dados atuais da questão em tela em menos de 1,5 segundos (`RNF-001`), mantendo o campo do Curso preenchido e completamente bloqueado.
+* **A1.3.** O Professor altera a subcategoria ou os campos pedagógicos necessários e prossegue para o passo P4 do fluxo principal.
 
-#### A1.1. No passo P1 do fluxo principal, o Professor opta por gerenciar o acervo e seleciona uma questão de sua autoria para alteração.
-#### A1.2. O sistema valida os privilégios RBAC por meio do token JWT do professor (`RNF-017` / `RN2`) e carrega os dados atuais da questão em tela em menos de 1,5 segundos (`RNF-001`), mantendo o campo do Curso preenchido e completamente bloqueado.
-#### A1.3. O Professor altera a subcategoria ou os campos pedagógicos necessários e prossegue para o passo P4 do fluxo principal.
+### A2. Salvar rascunho da questão
+* **A2.1.** No passo P3 do fluxo principal, o Professor decide interromper a elaboração da questão (por falta de dados ou tempo) e aciona o botão **"Salvar Rascunho"**.
+* **A2.2.** O sistema intercepta o envio e valida a autenticação (JWT), o escopo do curso (`RN2`) e sanitiza os dados informados até o momento (`RNF-015`), **ignorando intencionalmente as regras de validação de obrigatoriedade** dos campos pedagógicos estruturados do INEP.
+* **A2.3.** A API persiste os dados parciais no banco de dados (`RNF-046`) atrelando a eles o status **"Incompleto"** ou **"Rascunho"**.
+* **A2.4.** O sistema gera a respectiva trilha de auditoria da ação (`RNF-016`) e exibe a mensagem de sucesso correspondente em tela (`MSG002`), permitindo que o professor retome a edição futuramente através do fluxo A1.
 
 ## 8. Fluxos de Exceção
 
 ### E1. Estrutura padrão do INEP incompleta
-
-#### E1.1. No passo P4, o sistema detecta a ausência de campos obrigatórios exigidos pela estrutura do exame (`RN1` / `RNF-040`).
-#### E1.2. A solução bloqueia a persistência no banco SEC_BD para garantir a integridade do acervo.
-#### E1.3. O sistema exibe mensagens de erro claras, apontando visualmente o campo exato que precisa de correção (`RNF-028`), retornando ao passo P3.
+* **E1.1.** No passo P4, o sistema detecta a ausência de campos obrigatórios exigidos pela estrutura do exame (`RN1` / `RNF-040`).
+* **E1.2.** A solução bloqueia a persistência no banco SEC_BD para garantir a integridade do acervo.
+* **E1.3.** O sistema exibe mensagens de erro claras, apontando visualmente o campo exato que precisa de correção (`RNF-028`), retornando ao passo P3.
 
 ### E2. Tentativa de violação de escopo de curso/área
-
-#### E2.1. No passo P4, a validação lógica do backend detecta que o identificador do curso enviado na requisição diverge da área de atuação configurada de forma fixa no token JWT do professor (`RN2` / `RNF-017`).
-#### E2.2. A API Node.js bloqueia imediatamente a operação e rejeita a gravação.
-#### E2.3. O sistema renderiza um alerta de violação de privilégios e retorna ao estado anterior sem modificar o banco de dados.
+* **E2.1.** No passo P4, a validação lógica do backend detecta que o identificador do curso enviado na requisição diverge da área de atuação configurada de forma fixa no token JWT do professor (`RN2` / `RNF-017`).
+* **E2.2.** A API Node.js bloqueia imediatamente a operação e rejeita a gravação.
+* **E2.3.** O sistema renderiza um alerta de violação de privilégios e retorna ao estado anterior sem modificar o banco de dados.
 
 ### E3. Queda de conexão ou instabilidade de rede
-
-#### E3.1. Durante o envio do formulário (passo P4), o sistema detecta uma perda de comunicação ativa com os servidores da AWS Cloud (`RNF-011`).
-#### E3.2. A interface em React impede a perda do texto digitado pelo professor, mantendo os dados intactos no formulário local para proteção contra erros (`RNF-026` / `RNF-030`).
-#### E3.3. Uma notificação amigável de erro de rede é exibida na interface responsiva (`RNF-007` / `RNF-028`), permitindo reenvio assim que a conexão TLS 1.3 for reestabelecida.
+* **E3.1.** Durante o envio do formulário (passo P4), o sistema detecta uma perda de comunicação activa com os servidores da AWS Cloud (`RNF-011`).
+* **E3.2.** A interface em React impede a perda do texto digitado pelo professor, mantendo os dados intactos no formulário local para proteção contra erros (`RNF-026` / `RNF-030`).
+* **E3.3.** Uma notificação amigável de erro de rede é exibida na interface responsiva (`RNF-007` / `RNF-028`), permitindo reenvio assim que a conexão TLS 1.3 for reestabelecida.
 
 ### E4. Exclusão acidental de rascunhos de questões
-
-#### E4.1. Durante a manutenção de itens (Fluxo Alternativo A1), o Professor clica por engano no comando de exclusão.
-#### E4.2. O sistema intercepta o comando e impede a remoção imediata, exibindo obrigatoriamente um modal de confirmação de ação crítica (`RNF-026`).
-#### E4.3. Se o usuário cancelar, a questão é mantida intacta; se confirmar, a exclusão é processada e registrada na trilha de auditoria (`RNF-016`).
+* **E4.1.** Durante a manutenção de itens (Fluxo Alternativo A1), o Professor clica por engano no comando de exclusão.
+* **E4.2.** O sistema intercepta o comando e impede a remoção imediata, exibindo obrigatoriamente um modal de confirmação de ação crítica (`RNF-026`).
+* **E4.3.** Se o usuário cancelar, a questão é mantida intacta; se confirmar, a exclusão é processada e registrada na trilha de auditoria (`RNF-016`).
 
 ## 9. Pós-condições
 
@@ -125,25 +124,23 @@ A solução grava permanentemente a nova questão no banco PostgreSQL (`RNF-046`
 
 ## 11. Ponto de Extensão
 
-## PE1. Inicialização de Fórum de Discussão por Questão
-
-Imediatamente após a gravação da questão com sucesso no acervo (`POS01`), o sistema estende a operação para generate automaticamente o Fórum de Discussão correspondente (`F2.2`), aplicando nativamente os filtros de acesso por curso descritos nas regras de negócio (`RN3`) e exibindo os termos de conduta ética obrigatórios (`RNF-041`).
+### PE1. Inicialização de Fórum de Discussão por Questão
+Imediatamente após a gravação da questão com sucesso no acervo (`POS01`), o sistema estende a operação para gerar automaticamente o Fórum de Discussão correspondente (`F2.2`), aplicando nativamente os filtros de acesso por curso descritos nas regras de negócio (`RN3`) e exibindo os termos de conduta ética obrigatórios (`RNF-041`).
 
 ## 12. Frequência de Utilização
 
 Média. Alimentação contínua pelos docentes ao longo dos semestres, intensificada em janelas que antecedem avaliações simuladas programadas pelas coordenações.
 
-# 13. Interface Visual
+## 13. Interface Visual
 
-## IV1. Tela de Cadastro e Edição de Questões Educacionais
+### IV1. Tela de Cadastro e Edição de Questões Educacionais
 
-### Layout da Tela
-
+#### Layout da Tela
 Interface de uso exclusivo da equipe docente para inserção, formatação estruturada de itens de avaliação e revisão de justificativas técnicas, utilizando o token de sessão ativa e exibindo o curso de atuação de forma estática.
 
 ---
 
-## 13.1 Campos da Interface
+### 13.1 Campos da Interface
 
 | Campo | Tipo/Formato | Obrigatório | Descrição | Regra de Negócio |
 |---|---|---|---|---|
@@ -167,19 +164,19 @@ Interface de uso exclusivo da equipe docente para inserção, formatação estru
 
 ---
 
-## 13.2 Navegabilidade
+### 13.2 Navegabilidade
 
 | Ação | Resultado |
 |---|---|
 | Acessar tela de cadastro | O sistema lê o token JWT, identifica o curso do usuário, preenche o rótulo "Curso Atual" de forma desabilitada e popula o combo de áreas com os subtemas do curso |
 | Acionar "Salvar Questão" com campos em branco | O sistema bloqueia a requisição e sinaliza com destaque e texto o campo faltante (`RNF-028`) |
-| Acionar "Salvar Rascunho" | O sistema armazena os dados preenchidos e exibe mensagem de rascunho salvo |
+| Acionar "Salvar Rascunho" | O sistema armazena os dados preenchidos sem cobrar regras de obrigatoriedade e exibe mensagem de rascunho salvo |
 | Clicar em "Excluir Rascunho" | O sistema abre uma caixa de diálogo em Modal cobrando a confirmação da ação |
 | Confirmar exclusão no Modal | O sistema deleta o registro, atualiza os logs de auditoria e limpa os campos da tela |
 
 ---
 
-## 13.3 Mensagens Previstas
+### 13.3 Mensagens Previstas
 
 | Código | Mensagem |
 |---|---|
@@ -190,7 +187,7 @@ Interface de uso exclusivo da equipe docente para inserção, formatação estru
 
 ---
 
-## 13.4 Componentes Visuais
+### 13.4 Componentes Visuais
 
 | Área | Componente |
 |---|---|
@@ -198,7 +195,7 @@ Interface de uso exclusivo da equipe docente para inserção, formatação estru
 | Seção Central | Editores de texto rico (Rich Text Form) para Texto Base, Enunciado e Comentários |
 | Bloco de Mídia | Componente drag-and-drop para upload e visualização prévia da imagem de suporte |
 | Bloco de Asserções | Grupo alinhado de inputs de texto acoplados a seletores do tipo Radio Button |
-| Rodapé de Comandos | Barra flutuante de ações com botões coloridos em tons desaturados (Salvar, Rascunho, Cancelar) |
+| Rodapé de Comandos | Barra flutuante de ações com botões (Salvar Questão, Salvar Rascunho, Excluir Rascunho) |
 
 ---
 
