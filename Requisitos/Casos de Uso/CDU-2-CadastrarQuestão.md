@@ -14,7 +14,7 @@
 
 Cadastro de questões por área e curso
 
-<img src="../Imagens/Diagrama-CDU-2-CadastrarQuestão_v2.jpg" width="60%">
+<img src="../../Imagens/CDU-2-CadastrarQuestão_v2.png" width="60%">
 
 ## 2. Objetivo
 
