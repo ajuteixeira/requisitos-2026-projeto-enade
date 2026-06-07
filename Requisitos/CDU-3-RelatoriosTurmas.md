@@ -7,6 +7,9 @@
 | Data       | Versão | Descrição                                                                                          | Autor         |
 | ---------- | ------- | -------------------------------------------------------------------------------------------------- | ------------- |
 | 27/05/2026 | 1.0     | Criação inicial do caso de uso com base no requisito F4.6 da Visão da Demanda.                     | Juliana       |
+| 07/06/2026 | 1.1     | Ajustes gerais                  | Juliana       |
+
+<img src="../Imagens/Diagrama-CDU-3-RelatoriosTurmas.jpg" width="60%">
 
 ## 1. Nome do Caso de Uso
 
@@ -14,7 +17,7 @@ Acessar relatórios de desempenho de turmas
 
 ## 2. Objetivo
 
-Permitir ao Coordenador de Curso visualizar e filtrar dados estatísticos consolidados e gráficos de rendimento das turmas sob sua gestão dentro de um período delimitado, mapeando o percentual de acertos por eixos temáticos do INEP para subsidiar tomadas de decisão pedagógicas.
+Permitir ao Coordenador de Curso visualizar e filtrar dados estatísticos de rendimento das turmas sob sua gestão dentro de um período delimitado, mapeando o percentual de acertos por eixos temáticos do INEP para subsidiar tomadas de decisão pedagógicas.
 
 ## 3. Tipo de Caso de Uso
 
@@ -47,7 +50,7 @@ Concreto.
 
 ### P1. Solicitar acesso ao módulo de relatórios gerenciais
 
-O Coordenador de Curso acessa o painel administrativo através de um navegador homologado (`RNF-008`), visualiza o ambiente limpo focado em dados (`RNF-029`) e aciona a opção "Relatórios de Desempenho".
+O Coordenador de Curso acessa a dashboard através de um navegador homologado (`RNF-008`) e aciona a opção "Desempenho de Turmas".
 
 ### P2. Renderizar indicadores macro da área
 
@@ -66,8 +69,7 @@ A interface atualiza os dados em tempo de execução, exibindo tabelas comparati
 ### A1. Detalhamento nominal de desempenho por aluno
 
 #### A1.1. No passo P4 do fluxo principal, o Coordenador necessita auditar quais discentes necessitam de atenção individualizada.
-#### A1.2. O Coordenador aciona o comando "Ver Desempenho por Aluno" acoplado à listagem da turma.
-#### A1.3. A solução abre uma subdivisão hierárquica listando o ranking de notas, quantidade de simulados feitos e tempo médio de resolução de cada aluno, retornando ao passo P4 para continuidade da consulta.
+#### A1.2. O Coordenador acessa a seção "Detalhamento por Aluno" acoplado à listagem da turma, retornando ao passo P4 para continuidade da consulta.
 
 ## 8. Fluxos de Exceção
 
