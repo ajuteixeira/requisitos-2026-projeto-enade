@@ -9,6 +9,7 @@
 | 18/05/2026 | 1.0    | Criação inicial do caso de uso com base no requisito F1.1 da Visão da Demanda. | Juliana |
 | 27/05/2026 | 1.1    | Inclusão da especificação de Interface Visual e outros ajustes.                | Juliana |
 | 07/06/2026 | 1.2    | Ajustes gerais.                                                                | Juliana |
+| 11/06/2026 | 1.3    | Ajuste no fluxo alternativo                                                         | Juliana |
 
 ## 1. Nome do Caso de Uso
 
@@ -79,7 +80,7 @@ O Aluno Concluinte confirma a finalização. A solução encerra o cronômetro e
 
 ### A1. Aplicação de filtros customizados de acervo
 
-#### A1.1. No passo P1 do fluxo principal, o Aluno Concluinte opta por parametrizar o simulado utilizando filtros de seleção (`F1.2`).
+#### A1.1. No passo P1 do fluxo principal, o Aluno Concluinte opta por parametrizar o simulado utilizando filtros de seleção (`F1.2`). O Aluno Concluinte define os critérios de área/taxonomia. O sistema fixa automaticamente o simulado em 10 questões, calculando o tempo limite de 60 minutos (proporção de 6 minutos por questão, conforme ENADE).
 
 #### A1.2. O Aluno Concluinte define os critérios desejados (Formação Geral ou Conhecimento Específico) seguindo as taxonomias oficiais do INEP (`RNF-042`).
 
